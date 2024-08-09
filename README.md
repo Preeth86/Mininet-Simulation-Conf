@@ -1,32 +1,62 @@
-# Mininet-Simulation-Conf
-Installing Mininet on Ubuntu 20.04. Creating a Mininet script for customised Spine-Leaf Topology and generating VNE by saving into pickle file.
+# LitE
 
-Mininet Environment Welcome to our Mininet environment repository! This repository provides a flexible and powerful platform for creating virtualized spine-leaf network topologies for educational, research, and testing purposes. Mininet allows you to emulate complex network scenarios by creating customizable network topologies with switches, hosts, and controllers, all within a single machine.
+## Execution Environment:
 
-Key Features:
+Operation System: Ubuntu 20.04 (LTS), 64bit.<br />
+Physical Memory (RAM) 16.0 GB.<br />
 
-Topology Customization: Design custom network topologies by specifying the number of switches, hosts, and their interconnections. Fine-tune network parameters such as CPU limits, bandwidth, and delay for a realistic network emulation experience.
 
-OpenFlow Support: Leverage OpenFlow capabilities for dynamic and programmable network behavior. Experiment with SDN (Software-Defined Networking) concepts and protocols.
+### Prerequisites
 
-Python Integration: Use Python scripts to create, configure, and manage Mininet topologies. Seamlessly integrate Mininet with other Python-based networking tools and libraries.
+Python 3.7.<br />
+PyCharm Community Edition 2021.2. <br />
+Mininet for VDCE simulation.<br />
+An introduction about VDCE problem can be found in below link:<br />
+https://www.youtube.com/watch?v=JKB3aVyCMuo&t=506s<br />
 
-Experimentation and Testing: Test network protocols, algorithms, and applications in a controlled and reproducible environment. Simulate real-world network scenarios to analyze performance and behavior.
+### Installation
 
-Extensibility: Extend Mininet's functionality by integrating it with additional tools, controllers, or custom scripts. Contribute to the Mininet community by sharing your custom modules and extensions.
+- ~# git clone https://github.com/mininet/mininet
+- ~# cd mininet/
+- ~# sudo ./util/install.sh -a
+- ~# export PYTHONPATH="$PYTHONPATH:/media/sdn/New Volume/PyCharm Projects - ubuntu/Testing/mininet"
+- ~# sudo mn --test pingall
+- ~# sudo python run_mininet.py
 
-Getting Started:
+###   Download LitE and keep it in the drive where Mininet is present. The LitE file contains all executable files related to the proposed and baseline approaches. <br />
 
-Installation:
+- CEVNE.py -> The main file related to the baseline CEVNE approach.<br />
+- DROI.py -> The main file related to the baseline DROI approach.<br />
+- Energy_Load_Math.py -> The main file related to the proposed LitE approach. <br /> 
+- First_Fit.py -> The main file related to the Greedy baseline approach.<br />
+- Mininet.py -> The main file related to the PN topology generation.<br />
+- SN-Input-File.txt -> The main file related to the PN topology generation inputs. <br />
+- VNE-Input-File.txt -> The main file related to the VDCR generation inputs. <br />
+- VNE.generator.py -> The main file related to the VDCR topology generation. <br />
+- manager.py -> The main file is related to the proposed LitE approach manager module. <br />
 
-Follow the installation instructions in the documentation to set up Mininet and Ryu controller on your machine.
+## Usage
 
-Install Mininet
+###  In VNE.generator.py, we can set the various parameters related to Virtual Data Center Requests(VDCRs).<br />
 
-https://www.youtube.com/watch? --- to install mininet 
+- We can set the minimum and maximum number of VDCR VMs.<br />
 
-Install eventlet
+- We can set the virtual data center request demands like BandWidth(min, max), CRB(min, max), LocationX(min, max), LocationY(min, max), and Delay(min, max) in vdce. Append function. <br />
+- Example: (1, 5, 1, 10, 0, 100, 0, 100, 1, 4)<br />
 
-pip3 install eventlet==0.30.2
+- Run VNE.generator.py after doing any modifications. <br />
 
-Save the Mininet Python Code: Copy the given Python code (spine leaf) and save it in a file, for example, Mininet.pickle.py
+###  In Mininet.py:<br />
+
+- In the Mininet function mention the pickle file related to physical network generation.<br />
+
+- In graph.parameters function set physical network resources like BandWidth(min,max), CRB(min,max), LocationX(min,max), LocationY(min,max), Delay(min,max).<br />
+- Example: (500, 1000, 200, 1000, 0, 100, 0, 100, 1, 1)<br />
+
+- Run Mininet.py after doing any modification. <br />
+
+### In the manager.py file, set the VDCR size such as [250, 500, 750, 1000] and mention the number of iterations needed to execute each VDCR size in the iteration variable.<br />
+
+- Finally, run the manager.py file. After successfully running, a SN.pickle file is created (If it already does not exist in the specified path). It has all input parameters related to the physical network parameters, such as CRB, Bandwidth, Delay, and Location.
+
+- Final embedding results are captured in Results.xlsx, which includes values for various metrics for all test scenarios for every iteration.
